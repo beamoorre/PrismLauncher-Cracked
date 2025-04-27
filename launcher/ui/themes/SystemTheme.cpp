@@ -54,8 +54,9 @@ SystemTheme::SystemTheme(const QString& styleName, const QPalette& defaultPalett
         m_colorPalette = defaultPalette;
     } else {
         auto style = QStyleFactory::create(styleName);
-        m_colorPalette = style->standardPalette();
-        delete style;
+        m_colorPalette = style != nullptr ? style->standardPalette() : defaultPalette;
+        if (style != nullptr)
+            delete style;
     }
 }
 
